@@ -53,9 +53,10 @@ if st.button("Submit"):
 
 if st.sidebar.button("View Report") and reports:
     topic, urls, report_text = fetch_report_details(selected[0])
-    st.subheader(f"📄 Report: {topic}")
+    st.subheader(f"📄 Report: {topic}",anchor=False)
     st.write(report_text)
 
-    st.subheader("🔗 Sources")
+    st.subheader("🔗 Sources",anchor=False)
     for url in urls.split(","):
         st.write(f"- {url}")
+

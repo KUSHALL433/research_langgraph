@@ -9,7 +9,7 @@ from pypdf import PdfReader
 import requests
 from io import BytesIO
 import trafilatura
-
+from db import save_report
 
 load_dotenv()
 model=ChatGroq(model="groq/compound")
@@ -82,7 +82,7 @@ def generate_summary(state:AgentState):
     Key findings- ** Key findings from report **
     Conclusion- ** A unique conclusion on report **
 
-    The length of report should be minimum 100 words and maximum 500 words.
+    The length of report should be minimum 200 words and maximum 500 words.
     """
     
     user_content = f"""Context/ Extracted-Text:
@@ -97,6 +97,8 @@ def generate_summary(state:AgentState):
     ]
     
     summary = model.invoke(messages).content
+
+    save_report(state['messages'][0].content, state['url_list'], summary)
     return {'summary':summary}
 
 
@@ -113,8 +115,8 @@ graph.add_edge("text_extraction_tool", "summarize")
 graph.add_edge("summarize", END)
 
 app = graph.compile()
-app
-output=app.invoke({'messages':[HumanMessage(content="Impact of AI on education")],'extracted_text':"",'summary':"",'url_list':[]})
+# app
+# output=app.invoke({'messages':[HumanMessage(content="Impact of AI on education")],'extracted_text':"",'summary':"",'url_list':[]})
 
-print(output['summary'])
+# print(output['summary'])
 

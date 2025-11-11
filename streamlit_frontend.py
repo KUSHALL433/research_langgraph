@@ -5,10 +5,10 @@ from db import create_table, fetch_reports, fetch_report_details
 
 create_table()
 
-st.set_page_config(page_title="Researchy | LangGraph based topic researcher and report generator.",page_icon="✍🏻")
+st.set_page_config(page_title="Research Report Generator.",page_icon="✍🏻")
 
 st.info(
-    body="This a LangGraph based topic Research Agent that generates a structured report on given topic.",
+    body=" A Research Agent that generates a structured report on given topic with references.",
     icon="ℹ️"
 )
 
@@ -59,4 +59,5 @@ if st.sidebar.button("View Report") and reports:
     st.subheader("🔗 Sources",anchor=False)
     for url in urls.split(","):
         st.write(f"- {url}")
+
 
